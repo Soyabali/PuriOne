@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:puri/services/bindCommunityHallRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/generalFunction.dart';
 import '../../../services/BindCommunityHallDateRepo.dart';
+import '../../../services/BindMonthsRepo.dart';
 import '../../../services/PostCommunityBookingHallReqRepo.dart';
 import '../../../services/bindSubCategoryRepo.dart';
 import '../../circle/circle.dart';
@@ -33,6 +35,7 @@ class _MyHomePageState extends State<CommunityHallRequest> with TickerProviderSt
   //List<dynamic> bindcommunityHallDate = [];
  List<Map<String, dynamic>>bindcommunityHallDate=[];
   List<dynamic> wardList = [];
+  List<dynamic> bindMonthList = [];
   List<dynamic> bindreimouList = [];
   List blockList = [];
   List shopTypeList = [];
@@ -88,6 +91,7 @@ class _MyHomePageState extends State<CommunityHallRequest> with TickerProviderSt
   //var _dropDownSector;
   var dropDownSubCategory;
   var _dropDownWard;
+  var _dropDownMonth;
   var sectorresponse;
   String? sec;
   final distDropdownFocus = GlobalKey();
@@ -99,6 +103,7 @@ class _MyHomePageState extends State<CommunityHallRequest> with TickerProviderSt
 
   //var _selectedWardId;
   var _selectediCommunityHallId;
+  var _selectedMonthCode;
   var _selectedRatePerDay;
   var iUserTypeCode;
   var userId;
@@ -139,7 +144,13 @@ var  firstStatus;
     print(" -----xxxxx-  wardList--58-xx---> $wardList");
     setState(() {});
   }
-
+  // BindMonth
+  bindMonth() async {
+    /// todo remove the comment and call Community Hall
+    bindMonthList = await BindMonthsRepo().bindMonth();
+    print(" -----xxxxx-  BindMonth--148-xx---> $bindMonthList");
+    setState(() {});
+  }
   // DropdownButton Ward
   Widget _bindWard() {
     return Material(
@@ -184,15 +195,17 @@ var  firstStatus;
 
                       }
                     });
-                    if (_selectediCommunityHallId != null) {
+                    if (_selectediCommunityHallId != null && _selectedMonthCode!=null) {
                       /// remove the comment
-                      bindCommunityHallDate(_selectediCommunityHallId);
+                     setState(() {
+                       bindCommunityHallDate(_selectediCommunityHallId,_selectedMonthCode);
+                     });
 
                     } else {
                       //toast
                     }
                     print("------157---hallId--$_selectediCommunityHallId");
-                    print("------158----RatePerDay---$_selectedRatePerDay");
+                    print("------158--MonthCode---$_selectedMonthCode");
                   });
                 },
 
@@ -220,15 +233,97 @@ var  firstStatus;
       ),
     );
   }
-  Future<void> bindCommunityHallDate(var hallId) async {
+  // bindMonth list DropDown
+  Widget _bindMonthList() {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10.0),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Container(
+          width: MediaQuery.of(context).size.width - 50,
+          height: 42,
+          color: Color(0xFFf2f3f5),
+          child: DropdownButtonHideUnderline(
+            child: ButtonTheme(
+              alignedDropdown: true,
+              child: DropdownButton(
+                isDense: true,
+                // Reduces the vertical size of the button
+                isExpanded: true,
+                // Allows the DropdownButton to take full width
+                dropdownColor: Colors.white,
+                // Set dropdown list background color
+                onTap: () {
+                  FocusScope.of(context).unfocus(); // Dismiss keyboard
+                },
+                hint: RichText(
+                  text: TextSpan(
+                    text: "Select Community Hall",
+                    style: AppTextStyle.font14OpenSansRegularBlack45TextStyle,
+                  ),
+                ),
+                value: _dropDownMonth,
+                onChanged: (newValue) {
+                  setState(() {
+                    _dropDownMonth = newValue;
+                    bindMonthList.forEach((element) {
+                      if (element["sMonthName"] == _dropDownMonth) {
+                        // RatePerDay
+                        //_selectedWardId = element['iCommunityHallId'];
+                        _selectedMonthCode = element['iMonthCode'];
+
+                      }
+                    });
+                    if (_selectedMonthCode != null) {
+                      /// remove the comment
+                      setState(() {
+                       // bindCommunityHallDate(_selectediCommunityHallId);
+                      });
+
+                    } else {
+                      //toast
+                    }
+                    print("------157---_selectedMonthCode--$_selectedMonthCode");
+                    print("------158----RatePerDay---$_dropDownMonth");
+                  });
+                },
+
+                items: bindMonthList.map((dynamic item) {
+                  return DropdownMenuItem(
+                    value: item["sMonthName"].toString(),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item['sMonthName'].toString(),
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyle
+                                .font14OpenSansRegularBlack45TextStyle,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> bindCommunityHallDate(var hallId, selectedMonthCode) async {
     setState(() {
       isLoading = true; // Start the progress bar
     });
-
     try {
+      print("-----hallId----$hallId");
+      print("-----selectedMonthCode----$selectedMonthCode");
       bindcommunityHallDate = await BindCommunityHallDateRepo()
-          .bindCommunityHallDate(context, hallId);
-
+          .bindCommunityHallDate(context, hallId,selectedMonthCode);
+        print('-----232---->>>>---$bindcommunityHallDate');
       // If the response is not empty or null, set isSuccess to true
       if (bindcommunityHallDate.isNotEmpty) {
         setState(() {
@@ -337,8 +432,7 @@ var  firstStatus;
                       },
                     ),
                     if (secondItem != null)
-                      _buildDateTile(
-                        secondItem['dDate'],
+                      _buildDateTile(secondItem['dDate'],
                         selectedStates[secondIndex],
                         secondColor!,
                             () {
@@ -374,7 +468,7 @@ var  firstStatus;
         ),
       );
     } else {
-      return Center(
+      return const Center(
         child: Text(
           "No Data Available ",
           style: TextStyle(fontSize: 16, color: Colors.red),
@@ -383,10 +477,10 @@ var  firstStatus;
     }
   }
 
-
   @override
   void initState() {
     bindWard();
+    bindMonth();
     super.initState();
     _applicationNamefocus = FocusNode();
     _applicationMoboileNofocus = FocusNode();
@@ -413,11 +507,13 @@ var  firstStatus;
     _purposeOfBookingfocus.dispose();
     FocusScope.of(context).unfocus();
   }
-
   // Api call Function
-
   void validateAndCallApi() async {
     // Trim values to remove leading/trailing spaces
+    // random No
+    Random random = Random();
+    // Generate a random 10-digit number
+    int sBookingReqId = 1000000000 + random.nextInt(900000);
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? sCreatedBy = prefs.getString('sContactNo');
@@ -438,8 +534,10 @@ var  firstStatus;
     print("purposeOfBooking: $dPurposeOfBooking");
     print("per Day Amount : $_selectedRatePerDay");
     print("Community Booking Dates List : $selectedDates");
-    var sBookingReqId;
-    var iDaysOfBooking;
+    print("------446----${selectedDates.length}");
+    var iDaysOfBooking = "${selectedDates.length}";
+   // var sBookingReqId;
+   // var iDaysOfBooking;
     var iStatus;
     var dBookingDate;
    // var iCommunityHallID;
@@ -470,19 +568,16 @@ var  firstStatus;
         context,
         sBookingReqId,
         sApplicantName,
-        sAddress,
         sMobileNo,
-        iCommunityHallName,
+        sAddress,
+       _selectediCommunityHallId,
         iDaysOfBooking,
-        dPurposeOfBooking,
-        iStatus,
         _selectedRatePerDay,
-         sCreatedBy,
-         selectedDates,
-        dBookingDate,
-        _selectediCommunityHallId
+        dPurposeOfBooking,
+        sCreatedBy,
+        selectedDates
       );
-      print('----562---$onlineComplaintResponse');
+      print('----489---$onlineComplaintResponse');
       result2 = onlineComplaintResponse['Result'];
       msg2 = onlineComplaintResponse['Msg'];
       if (result2 == "1") {
@@ -591,6 +686,7 @@ var  firstStatus;
               statusBarBrightness: Brightness.light, // For iOS (dark icons)
             ),
             // backgroundColor: Colors.blu
+            centerTitle: true,
             backgroundColor: Color(0xFF255898),
             leading: GestureDetector(
               onTap: () {
@@ -865,6 +961,27 @@ var  firstStatus;
                                     ),
                                   ),
                                 ),
+                                // Month
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    // Align items vertically
+                                    children: <Widget>[
+                                      CircleWithSpacing(),
+                                      // Space between the circle and text
+                                      Text(
+                                        'Months',
+                                        style: AppTextStyle
+                                            .font14OpenSansRegularBlack45TextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                // Dropdown month
+                                _bindMonthList(),
                                 // Community Hall
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
@@ -1200,13 +1317,7 @@ var  firstStatus;
                                                   if(iStatus==2){
                                                     displayToast("Already Book");
                                                   }
-
-
-
-
-
-
-                                                },
+                                                  },
                                                 child: Container(
                                                   height: 45,
                                                   margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),

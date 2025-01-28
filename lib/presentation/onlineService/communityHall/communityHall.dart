@@ -91,6 +91,7 @@ class _OnlineComplaintState extends State<CommunityHall> {
           statusBarBrightness: Brightness.light, // For iOS (dark icons)
         ),
         // backgroundColor: Colors.blu
+        centerTitle: true,
         backgroundColor: Color(0xFF255898),
         leading: GestureDetector(
           onTap: (){
@@ -122,8 +123,7 @@ class _OnlineComplaintState extends State<CommunityHall> {
       ),
       //appBar: getAppBarBack(context, '${widget.name}'),
 
-      drawer:
-      generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
+      //drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
 
       body:
       isLoading

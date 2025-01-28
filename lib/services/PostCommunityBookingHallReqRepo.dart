@@ -14,7 +14,15 @@ class PostCommunityBookingHallReqRepo {
   GeneralFunction generalFunction = GeneralFunction();
 
   Future postCommunityBookingHall(
-      BuildContext context, sBookingReqId, String sApplicantName, String sAddress, String sMobileNo, iCommunityHallName, iDaysOfBooking, String dPurposeOfBooking, iStatus, fAmount, String? sCreatedBy, sBookingDateArray, dBookingDate, iCommunityHallID,
+      BuildContext context,
+      sBookingReqId,
+      String sApplicantName,sMobileNo,
+      String sAddress, iCommunityHallName,
+      iDaysOfBooking,
+      fAmount,
+      String dPurposeOfBooking,
+      String? sCreatedBy,
+      List<String> selectedDates
       ) async {
     // sharedP
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -23,17 +31,15 @@ class PostCommunityBookingHallReqRepo {
     try {
       print('----sBookingReqId---$sBookingReqId');
       print('----sApplicantName---$sApplicantName');
-      print('----sAddress---$sAddress');
       print('----sMobileNo---$sMobileNo');
+      print('----sAddress---$sAddress');
       print('----iCommunityHallName---$iCommunityHallName');
       print('----iDaysOfBooking---$iDaysOfBooking');
-      print('----dPurposeOfBooking---$dPurposeOfBooking');
-      print('----iStatus---$iStatus');
       print('----fAmount---$fAmount');
+      print('----dPurposeOfBooking---$dPurposeOfBooking');
       print('----sCreatedBy---$sCreatedBy');
-      print('----sBookingDateArray---$sBookingDateArray');
-      print('----dBookingDate---$dBookingDate');
-      print('----iCommunityHallID---$iCommunityHallID');
+      print('----selectedDates---$selectedDates');
+
 
       var baseURL = BaseRepo().baseurl;
 
@@ -43,7 +49,7 @@ class PostCommunityBookingHallReqRepo {
       print('------------39---markPointSubmitApi---$markPointSubmitApi');
 
       String jsonResponse =
-          '{"sArray":[{"sBookingReqId":"$sBookingReqId","sApplicantName":"$sApplicantName","sAddress":"$sAddress","sMobileNo":"$sMobileNo","iCommunityHallName":"$iCommunityHallName","iDaysOfBooking":"$iDaysOfBooking","dPurposeOfBooking":"$dPurposeOfBooking","iStatus":"$iStatus","fAmount":"$fAmount","sCreatedBy":"$sCreatedBy","sBookingDateArray":"$sBookingDateArray","dBookingDate":"$dBookingDate","iCommunityHallID":"$iCommunityHallID"}]}';
+          '{"sArray":[{"sBookingReqId":"$sBookingReqId","sApplicantName":"$sApplicantName","sMobileNo":"$sMobileNo","sAddress":"$sAddress","iCommunityHallName":"$iCommunityHallName","iDaysOfBooking":"$iDaysOfBooking","fAmount":"$fAmount","dPurposeOfBooking":"$dPurposeOfBooking","sCreatedBy":"$sCreatedBy","sBookingDateArray":"$selectedDates"}]}';
 
 
       // String jsonResponse =

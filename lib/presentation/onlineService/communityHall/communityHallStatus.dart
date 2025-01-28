@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:puri/presentation/complaints/grievanceStatus/searchBar.dart';
 import '../../../app/generalFunction.dart';
+import '../../../services/CommunityHallStatusRepo.dart';
 import '../../../services/citizenMyPostedComplaint.dart';
 import '../../circle/circle.dart';
 import '../../fullscreen/imageDisplay.dart';
@@ -52,8 +53,8 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
 
   pendingInternalComplaintResponse() async {
     pendingInternalComplaintList =
-    await CitizenMyPostComplaintRepo().cityzenpostcomplaint(context);
-    print('-----5----$pendingInternalComplaintList');
+    await CommunityHallStatusRepo().communityHall(context);
+    print('-----57-----xxx-----$pendingInternalComplaintList');
     _filteredData =
     List<Map<String, dynamic>>.from(pendingInternalComplaintList ?? []);
 
@@ -82,9 +83,9 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
     String query = _searchController.text.toLowerCase();
     setState(() {
       _filteredData = pendingInternalComplaintList?.where((item) {
-        String location = item['sCompId'].toLowerCase();
-        String pointType = item['sSubCategoryName'].toLowerCase();
-        String sector = item['sCategoryName'].toLowerCase();
+        String location = item['sBookingReqId'].toLowerCase();
+        String pointType = item['sApplicantName'].toLowerCase();
+        String sector = item['sMobileNo'].toLowerCase();
         return location.contains(query) ||
             pointType.contains(query) ||
             sector.contains(query);
@@ -252,53 +253,14 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
                                                     ),
                                                   ),
                                                 ),
-                                                title: Text(item['sWardName'] ?? '',
-                                                    style: AppTextStyle
-                                                        .font14penSansExtraboldBlack45TextStyle),
+                                                title: Padding(
+                                                  padding: const EdgeInsets.only( bottom: 5),
+                                                  child: Text(item['sCommunityHallName'] ?? '',
+                                                      style: AppTextStyle
+                                                          .font14penSansExtraboldBlack45TextStyle),
+                                                ),
                                               )),
-                                          Positioned(
-                                            top: 10,
-                                            right: 15,
-                                            child: GestureDetector(
-                                              onTap: (){
-                                                // print("------257-----");
-                                                //  sComplaintPhoto
-                                                var image = "${item['sComplaintPhoto']}";
-                                                print('------260----$image');
-                                                // FullScreenImages
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => FullScreenImages(image:image)),
-                                                );
 
-                                              },
-                                              child: Container(
-                                                width: 30,
-                                                height: 30,
-                                                // Height and width must be equal to make it circular
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.white,
-                                                  shape: BoxShape.circle,
-                                                  // Makes the container circular
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black26,
-                                                      blurRadius: 5,
-                                                      offset: Offset(0, 2),
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Center(
-                                                  child: Image.asset(
-                                                    'assets/images/picture.png',
-                                                    height: 25,
-                                                    width: 25,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
                                         ],
                                       ),
                                     ),
@@ -309,14 +271,14 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Complaint No',
+                                      Text('Booking Request Id',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 24),
-                                    child: Text(item['sCompId'] ?? '',
+                                    child: Text(item['sBookingReqId'] ?? '',
                                         style: AppTextStyle
                                             .font14OpenSansRegularRedTextStyle),
                                   ),
@@ -325,14 +287,14 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Category',
+                                      Text('Applicant Name',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 24),
-                                    child: Text(item['sCategoryName'] ?? '',
+                                    child: Text(item['sApplicantName'] ?? '',
                                         style: AppTextStyle
                                             .font14penSansExtraboldBlack26TextStyle),
                                   ),
@@ -341,14 +303,14 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Sub Category',
+                                      Text('Mobile No',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 24),
-                                    child: Text(item['sSubCategoryName'] ?? '',
+                                    child: Text(item['sMobileNo'] ?? '',
                                         style: AppTextStyle
                                             .font14penSansExtraboldBlack26TextStyle),
                                   ),
@@ -357,14 +319,46 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
                                     children: <Widget>[
                                       SizedBox(width: 5),
                                       CircleWithSpacing(),
-                                      Text('Complaint Details',
+                                      Text('Date Of Booking',
                                           style: AppTextStyle
                                               .font14OpenSansRegularBlack45TextStyle),
                                     ],
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 24),
-                                    child: Text(item['sComplaintDetails'] ?? '',
+                                    child: Text(item['dDateOfBooking'] ?? '',
+                                        style: AppTextStyle
+                                            .font14penSansExtraboldBlack26TextStyle),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      SizedBox(width: 5),
+                                      CircleWithSpacing(),
+                                      Text('Days Of Booking',
+                                          style: AppTextStyle
+                                              .font14OpenSansRegularBlack45TextStyle),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 24),
+                                    child: Text(item['iDaysOfBooking'].toString() ?? '',
+                                        style: AppTextStyle
+                                            .font14penSansExtraboldBlack26TextStyle),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      SizedBox(width: 5),
+                                      CircleWithSpacing(),
+                                      Text('Purpose of Booking',
+                                          style: AppTextStyle
+                                              .font14OpenSansRegularBlack45TextStyle),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 24),
+                                    child: Text(item['dPurposeOfBooking'].toString() ?? '',
                                         style: AppTextStyle
                                             .font14penSansExtraboldBlack26TextStyle),
                                   ),
@@ -380,10 +374,11 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 24),
-                                    child: Text(item['sAddress'] ?? '',
+                                    child: Text(item['sAddress'].toString() ?? '',
                                         style: AppTextStyle
                                             .font14penSansExtraboldBlack26TextStyle),
                                   ),
+
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
@@ -400,79 +395,80 @@ class _TemplesHomeState extends State<CommunityHallStatus> {
                                         style:
                                         AppTextStyle.font14OpenSansRegularRedTextStyle),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
-                                    child: Row(
-                                      children: [
-                                        // First Container
-                                        Expanded(
-                                          child: Container(
-                                            height: 50,
-                                            //color: Colors.blue,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              gradient: const LinearGradient(
-                                                // colors: [Colors.red, Colors.orange],
-                                                colors: [Color(0xFF255898),Color(0xFF12375e)],
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomRight,
-                                              ),
-
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 10, top: 5),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('Posted By',
-                                                      style: AppTextStyle
-                                                          .font140penSansExtraboldWhiteTextStyle),
-                                                  Text(item['sPostedBy'] ?? '',
-                                                      style: AppTextStyle
-                                                          .font140penSansExtraboldWhiteTextStyle)
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(width: 5),
-                                        // Second Container
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(bottom: 0),
-                                            child: Container(
-                                              height: 50,
-                                              //color: Colors.blue,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(5),
-                                                gradient: const LinearGradient(
-                                                  colors: [Color(0xFF255898),Color(0xFF12375e)],
-                                                  begin: Alignment.topLeft,
-                                                  end: Alignment.bottomRight,
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(left: 10, top: 5),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text('Posted At',
-                                                        style: AppTextStyle
-                                                            .font140penSansExtraboldWhiteTextStyle),
-                                                    Text(item['dPostedAt'] ?? '',
-                                                        style: AppTextStyle
-                                                            .font140penSansExtraboldWhiteTextStyle)
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                  SizedBox(height: 5),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
+                                  //   child: Row(
+                                  //     children: [
+                                  //       // First Container
+                                  //       Expanded(
+                                  //         child: Container(
+                                  //           height: 50,
+                                  //           //color: Colors.blue,
+                                  //           decoration: BoxDecoration(
+                                  //             borderRadius: BorderRadius.circular(5),
+                                  //             gradient: const LinearGradient(
+                                  //               // colors: [Colors.red, Colors.orange],
+                                  //               colors: [Color(0xFF255898),Color(0xFF12375e)],
+                                  //               begin: Alignment.topLeft,
+                                  //               end: Alignment.bottomRight,
+                                  //             ),
+                                  //
+                                  //           ),
+                                  //           child: Padding(
+                                  //             padding: const EdgeInsets.only(left: 10, top: 5),
+                                  //             child: Column(
+                                  //               mainAxisAlignment: MainAxisAlignment.start,
+                                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                                  //               children: [
+                                  //                 Text('Posted By',
+                                  //                     style: AppTextStyle
+                                  //                         .font140penSansExtraboldWhiteTextStyle),
+                                  //                 Text(item['sPostedBy'] ?? '',
+                                  //                     style: AppTextStyle
+                                  //                         .font140penSansExtraboldWhiteTextStyle)
+                                  //               ],
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //       SizedBox(width: 5),
+                                  //       // Second Container
+                                  //       Expanded(
+                                  //         child: Padding(
+                                  //           padding: const EdgeInsets.only(bottom: 0),
+                                  //           child: Container(
+                                  //             height: 50,
+                                  //             //color: Colors.blue,
+                                  //             decoration: BoxDecoration(
+                                  //               borderRadius: BorderRadius.circular(5),
+                                  //               gradient: const LinearGradient(
+                                  //                 colors: [Color(0xFF255898),Color(0xFF12375e)],
+                                  //                 begin: Alignment.topLeft,
+                                  //                 end: Alignment.bottomRight,
+                                  //               ),
+                                  //             ),
+                                  //             child: Padding(
+                                  //               padding: const EdgeInsets.only(left: 10, top: 5),
+                                  //               child: Column(
+                                  //                 mainAxisAlignment: MainAxisAlignment.start,
+                                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                                  //                 children: [
+                                  //                   Text('Posted At',
+                                  //                       style: AppTextStyle
+                                  //                           .font140penSansExtraboldWhiteTextStyle),
+                                  //                   Text(item['dPostedAt'] ?? '',
+                                  //                       style: AppTextStyle
+                                  //                           .font140penSansExtraboldWhiteTextStyle)
+                                  //                 ],
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // )
                                 ],
                               ),
                             ),

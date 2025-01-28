@@ -22,6 +22,7 @@ class ImageAssets {
   static const String logintopleft = "$IMAGE_PATH/logintopleft.png";
   static const String toprightlogin = "$IMAGE_PATH/toprightlogin.png";
   static const String iclauncher = "$IMAGE_PATH/ic_launcher.png";
+  static const String icon2 = "$IMAGE_PATH/icon2.jpeg";
   static const String settingsRightArrowIc =
       "$IMAGE_PATH/settings_right_arrow_ic.svg";
   static const String changeLangIc = "$IMAGE_PATH/change_lang_ic.svg";
