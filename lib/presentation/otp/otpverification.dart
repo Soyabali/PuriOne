@@ -18,6 +18,7 @@ class OtpPage extends StatefulWidget {
   State<OtpPage> createState() => _MyHomePageState();
 }
 class _MyHomePageState extends State<OtpPage> {
+
   var phoneNumber;
   TextEditingController _nameController = TextEditingController();
 
@@ -140,7 +141,7 @@ class _MyHomePageState extends State<OtpPage> {
                           ),
                           Text(
                             'OTP has been sent on : ${widget.phone}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Montserrat',
                               color: Color(0xff3f617d),
                               fontSize: 12.0,
@@ -299,15 +300,16 @@ class _MyHomePageState extends State<OtpPage> {
                                                         String? token = prefs.getString('sToken');
                                                         print('---321-----token---$token');
 
-                                                        // Navigator.push(
-                                                        //   context,
-                                                        //   MaterialPageRoute(builder: (context) => const ComplaintHomePage()),
-                                                        // );
-                                                        Navigator.pushAndRemoveUntil(
+                                                        Navigator.push(
                                                           context,
-                                                          MaterialPageRoute(builder: (context) => ComplaintHomePage()),
-                                                              (Route<dynamic> route) => false, // This condition removes all previous routes
+                                                          MaterialPageRoute(builder: (context) => const ComplaintHomePage()),
                                                         );
+
+                                                        // Navigator.pushAndRemoveUntil(
+                                                        //   context,
+                                                        //   MaterialPageRoute(builder: (context) => ComplaintHomePage()),
+                                                        //       (Route<dynamic> route) => false, // This condition removes all previous routes
+                                                        // );
 
 
                                                         controllers?.clear();

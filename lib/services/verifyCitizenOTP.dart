@@ -35,7 +35,7 @@ class VerifyCitizenOtpRepo {
       var map;
       var data = await response.stream.bytesToString();
       map = json.decode(data);
-      print('----------20---LOGINaPI RESPONSE----$map');
+      print('----------20---Otp RESPONSE----$map');
 
       if (response.statusCode == 200) {
         // create an instance of auth class

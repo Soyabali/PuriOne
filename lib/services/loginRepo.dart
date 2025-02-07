@@ -20,7 +20,6 @@ class LoginRepo {
       var endPoint = "SendOTPForCitizenLogin/SendOTPForCitizenLogin";
       var loginApi = "$baseURL$endPoint";
       print('------------17---loginApi---$loginApi');
-
       showLoader();
       var headers = {'Content-Type': 'application/json'};
       var request = http.Request(
@@ -35,7 +34,7 @@ class LoginRepo {
       var map;
       var data = await response.stream.bytesToString();
       map = json.decode(data);
-      print('----------20---LOGINaPI RESPONSE----$map');
+      print('----------37---LOGINaPI RESPONSE----$map');
       if(response.statusCode==401){
         generalFunction.logout(context);
       }
