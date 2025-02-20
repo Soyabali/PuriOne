@@ -8,10 +8,12 @@ import '../aboutDiu/aboutdiu.dart';
 import '../birth_death/birthanddeath.dart';
 import '../bookAdvertisement/bookAdvertisement.dart';
 import '../emergencyContact/emergencyContact.dart';
+import '../garbageRequest/garbaseRequest.dart';
 import '../helpline_feedback/helplinefeedback.dart';
 import '../onlineComplaint/onlineComplaint.dart';
 import '../onlineService/onlineService.dart';
 import '../resources/app_text_style.dart';
+import '../sewargeLifting/sewargeLifting.dart';
 import 'grievanceStatus/grievanceStatus.dart';
 
 class ComplaintHomePage extends StatefulWidget {
@@ -324,11 +326,12 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                           children: <Widget>[
                             InkWell(
                               onTap: () {
-
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) =>  OnlineComplaint(name: "Online Complaint")),
-                                // );
+                                print("----327--Garbage--");
+                                var name = "Garbage Request";
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  GarbaseRequest(name:name)),
+                                );
                               },
                               child: Container(
                                 height: 120,
@@ -405,12 +408,12 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                 //       builder: (context) =>
                                 //           PendingComplaintScreen()),
                                 // );
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           GrievanceStatus(name: "Complaint List")),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SewargeLifting(name: "Sewerage Lifting")),
+                                );
                               },
                               child: Container(
                                 height: 120,
@@ -1148,7 +1151,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                           ),
                                           SizedBox(height: 5),
                                           Text(
-                                            'About DIU',
+                                            'About Puri',
                                             style: AppTextStyle
                                                 .font14penSansExtraboldGreenTextStyle,
                                           ),

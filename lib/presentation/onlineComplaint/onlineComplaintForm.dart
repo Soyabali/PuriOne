@@ -341,6 +341,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                     wardList.forEach((element) {
                       if (element["sWardName"] == _dropDownWard) {
                         _selectedWardId = element['sWardCode'];
+                        print("----344--$_selectedWardId");
                       }
                     });
                   });
@@ -530,7 +531,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                       // width: 200, // Width of the container
                       //step3.jpg
                       child: Image.asset(
-                        'assets/images/complaints_header.png',
+                        'assets/images/puriheader1.jpeg',
                         // Replace 'image_name.png' with your asset image path
                         fit: BoxFit.fill, // Adjust the image fit to cover the container
                       ),
@@ -985,8 +986,7 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
                                     decoration: BoxDecoration(
                                       color: Color(0xFF255898),
                                       // Background color using HEX value
-                                      borderRadius: BorderRadius.circular(
-                                          AppMargin.m10), // Rounded corners
+                                      borderRadius: BorderRadius.circular(AppMargin.m10), // Rounded corners
                                     ),
                                     //  #00b3c7
                                     child: Center(

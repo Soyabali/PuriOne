@@ -48,8 +48,9 @@ class OnlineComplaintFormRepo {
       var markPointSubmitApi = "$baseURL$endPoint";
       print('------------39---markPointSubmitApi---$markPointSubmitApi');
 
-       String jsonResponse =
-          '{"sArray":[{"iCompCode":"$random20digitNumber","iSubCategoryCode":$selectedSubCategoryId,"sWardCode":$selectedWardId,"sAddress":"$address","sLandmark":"$landmark","sComplaintDetails":"$mentionYourConcerns","sComplaintPhoto":"$uplodedImage","sPostedBy":"$sContactNo","fLatitude":"$lat","fLongitude":"$long"}]}';
+     //  String jsonResponse = '{"sArray":[{"iCompCode":"$random20digitNumber","iSubCategoryCode":"$selectedSubCategoryId","sWardCode":"$selectedWardId","sAddress":"$address","sLandmark":"$landmark","sComplaintDetails":"$mentionYourConcerns","sComplaintPhoto":"$uplodedImage","sPostedBy":"$sContactNo","fLatitude":"$lat","fLongitude":"$long"}]}';
+      String jsonResponse = '{"sArray":[{"iCompCode":"$random20digitNumber","iSubCategoryCode":"$selectedSubCategoryId","sWardCode":"$selectedWardId","sAddress":"$address","sLandmark":"$landmark","sComplaintDetails":"$mentionYourConcerns","sComplaintPhoto":"$uplodedImage","sPostedBy":"$sContactNo","fLatitude":"$lat","fLongitude":"$long"}]}';
+
       //------------
 
       // Parse the JSON response
@@ -76,8 +77,7 @@ class OnlineComplaintFormRepo {
 
       var request = http.Request(
           'POST',
-          Uri.parse(
-              'http://115.244.7.153/diucitizenapi/api/CitizenPostComplaint/CitizenPostComplaint'));
+          Uri.parse('$markPointSubmitApi'));
       request.body =
           updatedJsonResponse; // Assign the JSON string to the request body
       request.headers.addAll(headers);

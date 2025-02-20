@@ -293,6 +293,7 @@ class _MyHomePageState extends State<OtpPage> {
                                                         // to store the value in local dataBase
 
                                                         SharedPreferences prefs = await SharedPreferences.getInstance();
+
                                                         prefs.setString('iCitizenCode',iCitizenCode);
                                                         prefs.setString('sContactNo',sContactNo);
                                                         prefs.setString('sCitizenName',sCitizenName);
