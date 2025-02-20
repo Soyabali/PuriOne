@@ -10,10 +10,12 @@ import '../bookAdvertisement/bookAdvertisement.dart';
 import '../emergencyContact/emergencyContact.dart';
 import '../garbageRequest/garbaseRequest.dart';
 import '../helpline_feedback/helplinefeedback.dart';
+import '../knowyourward/KnowYourWard.dart';
 import '../onlineComplaint/onlineComplaint.dart';
 import '../onlineService/onlineService.dart';
 import '../resources/app_text_style.dart';
 import '../sewargeLifting/sewargeLifting.dart';
+import '../toilet_locator/utilityLocator.dart';
 import 'grievanceStatus/grievanceStatus.dart';
 
 class ComplaintHomePage extends StatefulWidget {
@@ -46,7 +48,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
     print('---46--$sCitizenName');
     print('---47--$sContactNo');
     setState(() {
-
     });
   }
 
@@ -497,6 +498,16 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                           children: <Widget>[
                             InkWell(
                               onTap: () {
+                                print("----500--Tax Payment");
+                                // call a web page
+                                var name = "Tax Payment";
+                                var webUrl ="https://sujogportal.odisha.gov.in/puri/service/property-tax/";
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BirthAndDeathCertificate(name:name,webUrl:webUrl),
+                                    ));
 
                                 // Navigator.push(
                                 //   context,
@@ -570,20 +581,13 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                             SizedBox(width: 5),
                             InkWell(
                               onTap: () {
-                                // Add your onTap functionality here
-                                print('-----109------');
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           PendingComplaintScreen()),
-                                // );
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           GrievanceStatus(name: "Complaint List")),
-                                // );
+                                var pageName = "Know Your Ward";
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          KnowYourWard(pageName:pageName)),
+                                );
                               },
                               child: Container(
                                 height: 120,
@@ -667,11 +671,16 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                             InkWell(
                               onTap: () {
 
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) =>  OnlineComplaint(name: "Online Complaint")),
-                                // );
-                              },
+                                // marrige Certificate Url.
+                                var name = "Marriage Certificate";
+                                var webUrl ="https://sujog.odisha.gov.in/home";
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BirthAndDeathCertificate(name:name,webUrl:webUrl),
+                                    ));
+                                },
                               child: Container(
                                 height: 120,
                                 width: MediaQuery.of(context).size.width / 2 - 14,
@@ -739,24 +748,15 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                             SizedBox(width: 5),
                             InkWell(
                               onTap: () {
-                                // Add your onTap functionality here
                                 print('-----52------');
-                                // displayToast("Coming Soon");
                                 var name="Birth & Death Cert";
-
+                                var webUrl ="https://www.birthdeath.odisha.gov.in/#/home";
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          BirthAndDeathCertificate(name:name),
+                                          BirthAndDeathCertificate(name:name,webUrl:webUrl),
                                     ));
-
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           OnlineComplaint_2(name: "Raise Grievance")),
-                                // );
                               },
                               child: Container(
                                 height: 120,
@@ -800,12 +800,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                               ),
                                               borderRadius: BorderRadius.circular(12), // Optional: Adds rounded corners
                                             ),
-                                            // decoration: BoxDecoration(
-                                            //   borderRadius: BorderRadius.circular(25),
-                                            //   // half of width and height for a circle
-                                            //   //color: Colors.green
-                                            //   color: Color(0xFFD3D3D3),
-                                            // ),
                                             child: const Center(
                                                 child: Image(
                                                   image: AssetImage(
@@ -840,11 +834,11 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                             InkWell(
                               onTap: () {
 
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) =>  OnlineComplaint(name: "Online Complaint")),
-                                // );
-                              },
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  UtilityLocator()),
+                                );
+                                },
                               child: Container(
                                 height: 120,
                                 width: MediaQuery.of(context).size.width / 2 - 14,

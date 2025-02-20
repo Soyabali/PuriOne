@@ -147,7 +147,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
     debugPrint("Latitude: ----1056--- $lat and Longitude: $long");
     debugPrint(position.toString());
   }
-
   // generateRandomNumber
   String generateRandom20DigitNumber() {
     final Random random = Random();
@@ -159,7 +158,6 @@ class _MyHomePageState extends State<OnlineComplaintForm> {
 
     return randomNumber;
   }
-
   Future<void> uploadImage(String token, File imageFile) async {
     print("--------225---tolen---$token");
     print("--------226---imageFile---$imageFile");

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,7 @@ import '../../../services/cityzenpostcomplaintRepo.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import '../resources/app_strings.dart';
 import '../resources/app_text_style.dart';
 import '../resources/values_manager.dart';
 
@@ -30,8 +32,8 @@ class SewargeLifting extends StatefulWidget {
 class _TemplesHomeState extends State<SewargeLifting> {
 
   GeneralFunction generalFunction = GeneralFunction();
-
   final _formKey = GlobalKey<FormState>();
+
   File? image;
   String? todayDate;
   var result2,msg2;
@@ -39,7 +41,7 @@ class _TemplesHomeState extends State<SewargeLifting> {
   var _dropDownValueDistric;
   List stateList = [];
   List blockList = [];
-  List marklocationList = [];// bindComplaintSubCategory
+  List marklocationList = [];    // bindComplaintSubCategory
   List bindComplaintSubCategory = [];
   List bindComplintWard = [];
   int selectedValue = -1;
@@ -49,6 +51,7 @@ class _TemplesHomeState extends State<SewargeLifting> {
   var _selectedValueWard;
   var _selectedbindComplaintSubCategory;
   var _selectedBlockId;
+
   // Focus
   FocusNode namefieldfocus = FocusNode();
   final distDropdownFocus = GlobalKey();
@@ -123,7 +126,9 @@ class _TemplesHomeState extends State<SewargeLifting> {
       print(responseData);
       hideLoader();
       print('---------172---$responseData');
-      uplodedImage = "${responseData['Data'][0]['sImagePath']}";
+      setState(() {
+        uplodedImage = "${responseData['Data'][0]['sImagePath']}";
+      });
       print('----174--  xxxxx-$uplodedImage');
     } catch (error) {
       hideLoader();
@@ -196,13 +201,13 @@ class _TemplesHomeState extends State<SewargeLifting> {
               },
               items: bindComplaintSubCategory.map((dynamic item) {
                 return DropdownMenuItem(
+                  value: item["iSubCategoryCode"].toString(),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
                       item['sSubCategoryName'].toString(),
                     ),
                   ),
-                  value: item["iSubCategoryCode"].toString(),
                 );
               }).toList(),
             ),
@@ -406,7 +411,6 @@ class _TemplesHomeState extends State<SewargeLifting> {
                                   child: TextFormField(
                                     focusNode: namefocus,
                                     controller: nameController,
-
                                     textInputAction: TextInputAction.next,
                                     onEditingComplete: () =>
                                         FocusScope.of(context).nextFocus(),
@@ -431,6 +435,7 @@ class _TemplesHomeState extends State<SewargeLifting> {
                                 ),
                               ),
                             ),
+                            // mobile Number
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5, top: 5),
                               child: Row(
@@ -465,6 +470,11 @@ class _TemplesHomeState extends State<SewargeLifting> {
                                     textInputAction: TextInputAction.next,
                                     onEditingComplete: () =>
                                         FocusScope.of(context).nextFocus(),
+                                      keyboardType: TextInputType.phone,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(10), // Limit to 10 digits
+                                        //FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow digits
+                                      ],
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       enabledBorder: InputBorder.none,
@@ -575,7 +585,7 @@ class _TemplesHomeState extends State<SewargeLifting> {
                                   padding: const EdgeInsets.only(left: 10),
                                   child: TextFormField(
                                     focusNode: landMarkfocus,
-                                    controller: landMarkController,
+                                    controller: landmarkController,
                                     textInputAction: TextInputAction.next,
                                     onEditingComplete: () =>
                                         FocusScope.of(context).nextFocus(),
@@ -908,107 +918,115 @@ class _TemplesHomeState extends State<SewargeLifting> {
                                                 .font14penSansExtraboldRedTextStyle),
                                       ]),
                                   // sumbit button
-                                  SizedBox(height: 10),
-                                  Center(
-                                    child: ElevatedButton(
-                                        onPressed: () async {
 
-                                          var random = Random();
-                                          // Generate an 8-digit random number
-                                          int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
-                                          print('Random 8-digit number---770--: $randomNumber');
-
-                                          var address = addressTextEditingController.text;
-                                          var landmark = landmarkTextEditingController.text;
-                                          var mention = mentionTextEditingController.text;
-
-                                          print('---address--$address');
-                                          print('---landmark--$landmark');
-                                          print('---mention--$mention');
-                                          print('--DropDownSubCategory--$_dropDownValueComplaintSubCategory');
-                                          print('--DropDownward-----$_dropDownValueWard');// uplodedImage
-                                          print('--uplodedImage-----$uplodedImage');// randomNumber
-                                          print('--randomNumber-----$randomNumber');
-                                          print('--images-----$randomNumber');
-
-                                          if (_formKey.currentState!.validate() &&
-                                              _dropDownValueComplaintSubCategory !=null &&
-                                              _dropDownValueWard !=null &&
-                                              address != null &&
-                                              landmark != null &&
-                                              mention !=null &&
-                                              uplodedImage !=null
-                                          ) {
-
-                                            var markPointSubmitResponse =
-                                            await MarkPointSubmitRepo().markpointsubmit(
-                                                context,
-                                                randomNumber,
-                                                address,
-                                                landmark,
-                                                mention,
-                                                _dropDownValueComplaintSubCategory,
-                                                _dropDownValueWard,
-                                                uplodedImage
-                                            );
-
-                                            print('----805---$markPointSubmitResponse');
-                                            result2 = markPointSubmitResponse['Result'];
-                                            print('---result---xxx---$result2');
-                                            msg2 = markPointSubmitResponse['Msg'];
-
-                                          } else {
-                                            print('---call Api not call---');
-                                            if(_dropDownValueComplaintSubCategory==null){
-                                              displayToast('select Category');
-                                            }else if(_dropDownValueWard==null){
-                                              displayToast('select Ward');
-                                            }else if(address==""){
-                                              displayToast('Enter Address');
-                                            }else if(landmark==null){
-                                              displayToast('Enter Landmark');
-                                            }else if(mention==null){
-                                              displayToast('Enter Mention');
-                                            }else if(uplodedImage==null){
-                                              displayToast('Pick a Image');
-                                            }else{
-
-                                            }
-                                          }
-                                          if(result2=="1"){
-                                            print('------823----xxxxxxxxxxxxxxx----');
-                                            print('------823---result2  -xxxxxxxxxxxxxxx--$result2');
-                                            displayToast(msg2);
-                                            Navigator.pop(context);
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //       builder: (context) => const HomePage()),
-                                            // );
-                                          }else{
-
-                                            displayToast(msg2);
-                                          }
-
-                                          /// Todo next Apply condition
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(
-                                              0xFF255899), // Hex color code (FF for alpha, followed by RGB)
-                                        ),
-                                        child: const Text(
-                                          "Submit",
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.white,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                    ),
-                                  )
                                 ],
                               ),
                             ),
+                            // sumit Button
+                            Center(
+                              child: ElevatedButton(
+                                  onPressed: () async {
+                                    var random = Random();
+                                    // Generate an 8-digit random number
+                                    int randomNumber = random.nextInt(99999999 - 10000000) + 10000000;
+                                    print('Random 8-digit number---770--: $randomNumber');
+
+                                    var name = nameController.text.trim();
+                                    var mobileNumber = mobileNumberController.text.trim();
+                                    var fullAddress = fullAddressController.text.trim();
+                                    var landmark = landmarkController.text.trim();
+                                    var remark = remarksController.text.trim();
+
+
+                                    print('---name--$name');
+                                    print('---mobileNumber--$mobileNumber');
+                                    print('---fullAddress--$fullAddress');
+                                    print('--landmark--$landmark');
+                                    print('--remark-----$remark');// uplodedImage
+
+                                    if (_formKey.currentState!.validate() &&
+                                        name.isNotEmpty &&
+                                        mobileNumber.isNotEmpty &&
+                                        fullAddress.isNotEmpty &&
+                                        landmark.isNotEmpty &&
+                                        remark.isNotEmpty &&
+                                        uplodedImage !=null || uplodedImage !=''
+                                    ) {
+                                      print("---call Api---");
+
+                                      /// TODO CALL API HERE
+
+                                      // var markPointSubmitResponse =
+                                      // await MarkPointSubmitRepo().markpointsubmit(
+                                      //     context,
+                                      //     randomNumber,
+                                      //     address,
+                                      //     landmark,
+                                      //     mention,
+                                      //     _dropDownValueComplaintSubCategory,
+                                      //     _dropDownValueWard,
+                                      //     uplodedImage
+                                      // );
+                                      //
+                                      // print('----805---$markPointSubmitResponse');
+                                      // result2 = markPointSubmitResponse['Result'];
+                                      // print('---result---xxx---$result2');
+                                      // msg2 = markPointSubmitResponse['Msg'];
+
+                                    } else {
+                                      print('---call Api not call---');
+                                      if(name.isEmpty){
+                                        displayToast('Please enter Name');
+                                        return;
+                                      }else if(mobileNumber.isEmpty){
+                                        displayToast('Please enter Mobile Number');
+                                        return;
+                                      }else if(fullAddress.isEmpty){
+                                        displayToast('Please enter Full Address');
+                                        return;
+                                      }else if(landmark.isEmpty){
+                                        displayToast('Please enter Landmark');
+                                        return;
+                                      }else if(remark.isEmpty){
+                                        displayToast('Please enter Remarks');
+                                        return;
+                                      }else if(uplodedImage==null || uplodedImage ==''){
+                                        displayToast('Pick a Image');
+                                        return;
+                                      }else{
+
+                                      }
+                                    }
+                                    if(result2=="1"){
+                                      print('------823----xxxxxxxxxxxxxxx----');
+                                      print('------823---result2  -xxxxxxxxxxxxxxx--$result2');
+                                      displayToast(msg2);
+                                      Navigator.pop(context);
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) => const HomePage()),
+                                      // );
+                                    }else{
+
+                                      displayToast(msg2);
+                                    }
+                                    /// Todo next Apply condition
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(
+                                        0xFF255899), // Hex color code (FF for alpha, followed by RGB)
+                                  ),
+                                  child: const Text(
+                                    "Submit",
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                              ),
+                            )
 
 
 

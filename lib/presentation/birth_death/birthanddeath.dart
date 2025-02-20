@@ -9,7 +9,8 @@ import 'birthanddeathwebView.dart';
 class BirthAndDeathCertificate extends StatefulWidget {
 
   final name;
-  BirthAndDeathCertificate({super.key,this.name});
+  final webUrl;
+  BirthAndDeathCertificate({super.key,this.name,  this.webUrl});
 
   @override
   State<BirthAndDeathCertificate> createState() => _BirthAndDeathState();
@@ -18,10 +19,14 @@ class BirthAndDeathCertificate extends StatefulWidget {
 class _BirthAndDeathState extends State<BirthAndDeathCertificate> {
 
   GeneralFunction generalFunction = GeneralFunction();
-
+  var pageName;
+  var webUrl;
   @override
   void initState() {
+    pageName = "${widget.name}";
+    webUrl = "${widget.webUrl}";
     super.initState();
+
    // BackButtonInterceptor.add(myInterceptor);
   }
 
@@ -38,12 +43,13 @@ class _BirthAndDeathState extends State<BirthAndDeathCertificate> {
       onWillPop: () async => false,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: getAppBarBack(context,"Birth & Death Certificate"),
+        //appBar: getAppBarBack(context,"Birth & Death Certificate"),
+        appBar: getAppBarBack(context,pageName),
         //drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
         body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: BirthAndDeathWebViewStack()),
+            child: BirthAndDeathWebViewStack(webUrl:webUrl)),
       ),
     );
   }
