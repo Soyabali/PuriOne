@@ -204,6 +204,7 @@ class _TemplesHomeState extends State<GrievanceStatus> {
                             Card(
                               elevation: 4,
                               shadowColor: Colors.white,
+
                               child: Container(
                                 color: Colors.white,
                                 child: Column(
