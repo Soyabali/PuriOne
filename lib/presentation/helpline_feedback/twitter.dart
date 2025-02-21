@@ -36,7 +36,7 @@ class _WebViewStackState extends State<TwitterWeb> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)  // Enable JavaScript
       ..loadRequest(
-        Uri.parse('https://twitter.com/i/flow/login?redirect_after_login=%2FDiuSmartCity'),
+        Uri.parse('https://x.com/puriulb'),
       );
   }
 

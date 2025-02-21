@@ -13,11 +13,14 @@ import 'package:url_launcher/url_launcher.dart';
 import '../presentation/advertisementBookingStatus/advertisementBookingStatus.dart';
 import '../presentation/complaints/complaintHomePage.dart';
 import '../presentation/complaints/raiseGrievance/notification.dart';
+import '../presentation/garbagePickupRequestList/garbagePickupRequestList.dart';
 import '../presentation/homepage/homepage.dart';
 import '../presentation/login/loginScreen_2.dart';
 import '../presentation/resources/app_text_style.dart';
 import '../presentation/resources/assets_manager.dart';
 import '../presentation/resources/values_manager.dart';
+import '../presentation/sewargeLifting/sewargeLifting.dart';
+import '../presentation/sewergeLiftingRequestList/sewerageLiftingRequestList.dart';
 import '../presentation/temples/cityhistory/cityhistory.dart';
 import '../presentation/temples/emergency/emergencyhome.dart';
 import '../presentation/temples/facilities/facilities.dart';
@@ -606,7 +609,7 @@ class GeneralFunction {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                             builder: (context) =>
-                                CityHistory(templeName: "", image: "")),
+                                NotificationPage()),
                       );
                     },
                     child: Row(
@@ -974,8 +977,9 @@ class GeneralFunction {
                       //displayToast("Coming Soon");
 
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => AdvertisementBookingStatus()),
+                        MaterialPageRoute(builder: (context) => GarbagePickup()),
                       );
+
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -1000,7 +1004,7 @@ class GeneralFunction {
                       //displayToast("Coming Soon");
 
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => AdvertisementBookingStatus()),
+                        MaterialPageRoute(builder: (context) => SewerageLiftingRequestList()),
                       );
                     },
                     child: Row(

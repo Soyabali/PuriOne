@@ -42,7 +42,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
 
   getEmergencyTitleResponse() async {
     emergencyTitleList = await GetEmergencyContactTitleRepo().getEmergencyContactTitle(context);
-    print('------31----$emergencyTitleList');
+    print('------45----$emergencyTitleList');
     setState(() {
       isLoading = false;
     });
@@ -146,7 +146,7 @@ class _TemplesHomeState extends State<EmergencyContacts> {
           title: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Text(
-              'Department List',
+              'Department List ',
               style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
               textAlign: TextAlign.center,
             ),

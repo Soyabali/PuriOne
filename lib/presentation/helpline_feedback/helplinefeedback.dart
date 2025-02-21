@@ -71,11 +71,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
 
     if (feedback.isNotEmpty) {
       // All conditions met; call the API
-      print('---Call API---');
-
-     var  feedbackResponse = await FeedbackRepo().feedfack(context, feedback,sContactNo);
-      print('----845---->>.--->>>>---$feedbackResponse');
-      result = feedbackResponse['Result'];
+    var  feedbackResponse = await FeedbackRepo().feedfack(context, feedback,sContactNo);
+     result = feedbackResponse['Result'];
       msg = feedbackResponse['Msg'];
       _feedbackController.clear();
      // displayToast(msg);
@@ -114,8 +111,8 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
               children: <Widget>[
                 Center(
                   child: Image.asset(
-                    //"assets/images/home.png",
-                    ImageAssets.iclauncher, // Replace with your image asset path
+                    "assets/icon/icon.png",
+                   // ImageAssets.iclauncher, // Replace with your image asset path
                     width: AppSize.s145,
                     height: AppSize.s145,
                     fit: BoxFit.contain, // Adjust as needed
@@ -151,7 +148,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        height: 80,
+                                        height: 95,
                                         child: Padding(
                                           padding: EdgeInsets.only(top: 5),
                                           child: Padding(
@@ -162,10 +159,10 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                               children: [
-                                                Text('Diu Muncipal Council Address',
+                                                Text('Puri Muncipality Address',
                                                   style: AppTextStyle.font14OpenSansRegularBlackTextStyle,),
                                                 SizedBox(height: 5),
-                                                Text('For Road, Diu,(Union territory),India',
+                                                Text('Office of the Puri Municipality, In front of Special Circuit House, VIP Road, Puri, Puri, India, Odisha.',
                                                   style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
                                                 SizedBox(height: 5),
                                               ],
@@ -226,7 +223,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                 Text('Phone Number',
                                                   style: AppTextStyle.font14OpenSansRegularBlackTextStyle),
                                                 SizedBox(height: 5),
-                                                Text("+91-2875-253638",
+                                                Text("0671-2310472",
                                                   style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
                                                 SizedBox(height: 5),
                                               ],
@@ -238,7 +235,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                     InkWell(
                                       onTap: (){
                                        // launchUrlString("tel://7520014455");
-                                        launchUrlString("tel://912875-253638");
+                                        launchUrlString("tel://06712310472");
                                       },
                                       child: Padding(
                                           padding: const EdgeInsets.only(right: 10),
@@ -274,7 +271,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  UrlLauncher.launch('mailto:${'jagannath@nic.in'}');
+                                  UrlLauncher.launch('mailto:${'purim.hud@nic.in'}');
                                 },
                                 child: Row(
                                   children: [
@@ -294,7 +291,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                 Text('Email id',
                                                     style: AppTextStyle.font14OpenSansRegularBlackTextStyle),
                                                 SizedBox(height: 5),
-                                                Text('dmc-diu-dd@nic.in',
+                                                Text('purim.hud@nic.in',
                                                     style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
                                                 SizedBox(height: 5),
                                               ],
@@ -307,7 +304,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                       onTap: (){
                                         /// TODO CHANGE EMAIL IN A FUTURE
                                        // UrlLauncher.launch('mailto:${'puri@gmail.com'}');
-                                        UrlLauncher.launch('mailto:${'dmc-diu-dd@nic.in'}');
+                                        UrlLauncher.launch('mailto:${'purim.hud@nic.in'}');
                                       },
                                       child: Padding(
                                           padding: const EdgeInsets.only(right: 10),
@@ -368,7 +365,7 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
                                                 Text('Website',
                                                     style: AppTextStyle.font14OpenSansRegularBlackTextStyle),
                                                 SizedBox(height: 5),
-                                                Text('https://upegov.in/website/',
+                                                Text('purimunicipality.nic.in',
                                                     style: AppTextStyle.font14OpenSansRegularBlack45TextStyle),
                                                 SizedBox(height: 5),
                                               ],
@@ -525,16 +522,16 @@ class _HelpLineFeedBackState extends State<HelpLineFeedBack> {
               mainAxisSize: MainAxisSize.min, // Shrinks the column to fit its children
               children: [
                 // Center image
-                Center(
+                 Center(
                   child: Image.asset(
-                    ImageAssets.iclauncher, // Replace with your image asset path
+                    "assets/icon/icon.png",
+                    // ImageAssets.iclauncher, // Replace with your image asset path
                     width: AppSize.s145,
                     height: AppSize.s145,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.contain, // Adjust as needed
                   ),
                 ),
                 SizedBox(height: 16),
-
                 // Row with circular widget and "Feedback" text
                 Row(
                   children: [

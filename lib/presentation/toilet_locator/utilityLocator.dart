@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:puri/model/toiletListModel.dart';
@@ -17,7 +16,6 @@ import '../../app/navigationUtils.dart';
 import '../../services/GetNearByPlacesTypeRepo.dart';
 import '../../services/toiletListRepo.dart';
 import '../fullscreen/imageDisplay.dart';
-import '../resources/app_colors.dart';
 import '../resources/app_text_style.dart';
 import '../temples/templeGoogleMap.dart';
 
@@ -410,7 +408,7 @@ class _TemplesHomeState extends State<UtilityLocator> with WidgetsBindingObserve
                                // print("------394---$publicUtilityName");
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.only(right: 10,left: 10,top: 10,bottom: 10),
                                 child: Image.asset(
                                   'assets/images/arrow.png',
                                   height: 12,

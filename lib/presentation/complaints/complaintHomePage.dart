@@ -160,7 +160,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                 // );
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) =>  OnlineComplaint(name: "Online Complaint")),
+                                  MaterialPageRoute(builder: (context) =>  OnlineComplaint(name: "Raise Grievance")),
                                 );
                                 },
                               child: Container(
@@ -242,7 +242,7 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          GrievanceStatus(name: "Complaint List")),
+                                          GrievanceStatus(name: "Grievance Status")),
                                 );
                               },
                               child: Container(
@@ -1082,13 +1082,25 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                               onTap: () {
                                 // Add your onTap functionality here
                                 //print('-----353------');
+
+                                //----Open a url about a puri
+                                var name = "About Puri";
+                                var webUrl ="https://upegov.in/Puriswm/News/PURIATAGLANCE.html";
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AboutDiu(
-                                          name: "About Puri")),
-                                );
-                                },
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BirthAndDeathCertificate(name:name,webUrl:webUrl),
+                                    ));
+
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => AboutDiu(
+                                //           name: "About Puri")),
+                                // );
+
+                              },
                               child: Container(
                                 height: 120,
                                 width: MediaQuery.of(context).size.width / 2 - 14,

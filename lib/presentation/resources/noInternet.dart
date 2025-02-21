@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:puri/presentation/resources/app_strings.dart';
 
 import 'app_text_style.dart';
+import 'assets_manager.dart';
 
 class NoInternet extends StatefulWidget {
   const NoInternet({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class NoInternetState extends State<NoInternet> {
             SizedBox(
               height: 150,
               width: 150,
-              child: Image.asset("assets/images/ic_launcher.png",
+              child: Image.asset(ImageAssets.icon2,
                 // color: Colors.transparent,
               ),
             ),
@@ -72,7 +73,7 @@ class NoInternetState extends State<NoInternet> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text('Diu Citizen',
+              child: Text('Puri One',
                   style: AppTextStyle.font12OpenSansRegularBlackTextStyle),
             ),
           ],

@@ -99,7 +99,7 @@ class _WebViewStackState extends State<FaceBookWeb> {
       ))
       ..setJavaScriptMode(JavaScriptMode.unrestricted) // Enable JavaScript
       ..loadRequest(
-        Uri.parse('https://www.facebook.com/p/Smart-City-Diu-100069577986430/'),
+        Uri.parse('https://www.facebook.com/puriulb/'),
       );
   }
 

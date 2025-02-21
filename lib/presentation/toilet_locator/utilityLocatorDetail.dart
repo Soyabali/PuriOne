@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:puri/app/generalFunction.dart';
 import 'package:puri/model/toiletListModel.dart';
@@ -16,7 +14,6 @@ import '../../app/navigationUtils.dart';
 import '../../services/GetNearByPlaceListRepo2.dart';
 import '../../services/toiletListRepo.dart';
 import '../fullscreen/imageDisplay.dart';
-import '../resources/app_colors.dart';
 import '../resources/app_text_style.dart';
 import '../temples/templeGoogleMap.dart';
 
@@ -312,17 +309,52 @@ class _TemplesHomeState extends State<UtilityLocatorDetail> with WidgetsBindingO
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5.0),
-                                child: Image.network(
-                                  utilitylocatorList![index]['sImage'],
-                                  height: 70,
-                                  width: 70,
-                                  fit: BoxFit.cover, // Ensures the image covers the whole box properly
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Icon(Icons.broken_image, size: 45, color: Colors.grey);
-                                  },
+                                child: Transform.rotate(
+                                  angle: -pi / 2, // Rotate -90 degrees (or pi/2 for clockwise)
+                                  child: Image.network(
+                                    utilitylocatorList![index]['sImage'],
+                                    fit: BoxFit.contain, // Ensures the whole image is visible
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Icon(Icons.broken_image, size: 45, color: Colors.grey);
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
+                            // child: Container(
+                            //   height: 90,
+                            //   width: 90,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //   ),
+                            //   child: ClipRRect(
+                            //     borderRadius: BorderRadius.circular(5.0),
+                            //     child: Transform.rotate(
+                            //       angle: -pi / 1, // Rotate 90 degrees (pi/2 radians)
+                            //       child: Image.network(
+                            //           utilitylocatorList![index]['sImage'],
+                            //         height: 70,
+                            //         width: 70,
+                            //         fit: BoxFit.cover,
+                            //         errorBuilder: (context, error, stackTrace) {
+                            //           return Icon(Icons.broken_image, size: 45, color: Colors.grey);
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   // child: ClipRRect(
+                            //   //   borderRadius: BorderRadius.circular(5.0),
+                            //   //   child: Image.network(
+                            //   //     utilitylocatorList![index]['sImage'],
+                            //   //     height: 70,
+                            //   //     width: 70,
+                            //   //     fit: BoxFit.cover, // Ensures the image covers the whole box properly
+                            //   //     errorBuilder: (context, error, stackTrace) {
+                            //   //       return Icon(Icons.broken_image, size: 45, color: Colors.grey);
+                            //   //     },
+                            //   //   ),
+                            //   // ),
+                            // ),
                             // child:Container(
                             //   height: 90,
                             //   width: 90,
