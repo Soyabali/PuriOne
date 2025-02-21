@@ -1041,10 +1041,8 @@ class GeneralFunction {
                           height: 25,
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          'Notification',
-                          style:
-                              AppTextStyle.font16penSansExtraboldBlackTextStyle,
+                        Text('Notification',
+                          style: AppTextStyle.font16penSansExtraboldBlackTextStyle,
                         ),
                       ],
                     ),

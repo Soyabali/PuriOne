@@ -8,7 +8,6 @@ import '../../../services/notificationRepo.dart';
 import '../../resources/app_text_style.dart';
 import '../complaintHomePage.dart';
 
-
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
 
@@ -104,11 +103,6 @@ class _MyHomePageState extends State<MyHomePage> {
             //centerTitle: true,
             elevation: 0, // Removes shadow under the AppBar
           ),
-        //  drawer: generalFunction.drawerFunction(context,'$sName','$sContactNo'),
-         // drawer: generalFunction.drawerFunction_2(context,"$sCitizenName","$sContactNo"),
-    // WillPopScope(
-    // onWillPop: () async => false,
-    //       child:
           body: WillPopScope(
             onWillPop: ()async =>false,
             child: Container(
