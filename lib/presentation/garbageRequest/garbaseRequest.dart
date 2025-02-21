@@ -13,6 +13,7 @@ import '../../../services/cityzenpostcomplaintRepo.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import '../../services/GetWasteTypeRepo.dart';
 import '../../services/PostCitizenRequestMobileRepo.dart';
 import '../../services/baseurl.dart';
 import '../resources/app_text_style.dart';
@@ -87,11 +88,11 @@ class _TemplesHomeState extends State<GarbaseRequest> {
   }
   // bindCityzenWard
   bindCityzenData() async {
-    bindComplintWard = await BindCityzenWardRepo().getbindWard(context);
+    bindComplintWard = await GetWasteTypeRepo().getWasteType();
     print(" -----xxxxx-  bindComplaintWard--- 87---> $bindComplintWard");
     setState(() {});
   }
-
+   // GetWasteType/GetWasteType
   //
   Future pickImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -321,12 +322,8 @@ class _TemplesHomeState extends State<GarbaseRequest> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: getAppBarBack(context,'${widget.name}'),
-      //  appBar: getAppBarBack(context,'JSSJSJ'),
-       // drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-
         body: ListView(
           children: <Widget>[
-           // middleHeader(context, '${widget.complaintName}'),
             SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20,top: 15),

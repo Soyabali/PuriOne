@@ -122,19 +122,10 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                       fit: BoxFit.cover, // Adjust how the image fits the container
                     ),
                     borderRadius: BorderRadius.circular(15), // Optional: Rounded corners
-                    // boxShadow: const [
-                    //   BoxShadow(
-                    //     color: Colors.black12, // Shadow color
-                    //     blurRadius: 10, // Spread of the shadow
-                    //     offset: Offset(0, 5), // Position of the shadow
-                    //   ),
-                    // ],
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10,right: 10),
                     child: ListView(
-                     // mainAxisAlignment: MainAxisAlignment.start,
-                      //crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -152,12 +143,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                           children: <Widget>[
                             InkWell(
                               onTap: () {
-
-                                // Navigator.push(context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           OnlineComplaint(name: "Online Complaint")),
-                                // );
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) =>  OnlineComplaint(name: "Raise Grievance")),
@@ -475,13 +460,6 @@ class _MyHomePageState extends State<ComplaintHomePage> {
                                             'Sewerage Lifting',
                                             style: AppTextStyle
                                                 .font14penSansExtraboldOrangeTextStyle,
-                                            // style: GoogleFonts.lato(
-                                            //     textStyle: Theme.of(context).textTheme.titleSmall,
-                                            //     fontSize: 14,
-                                            //     fontWeight: FontWeight.w700,
-                                            //     fontStyle: FontStyle.italic,
-                                            //     color:Colors.orange
-                                            // ),
                                           ),
                                         ],
                                       ),

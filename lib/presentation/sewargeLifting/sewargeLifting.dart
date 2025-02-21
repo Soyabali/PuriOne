@@ -156,135 +156,6 @@ class _TemplesHomeState extends State<SewargeLifting> {
     } catch (e) {}
   }
 
-  /// Todo bind SubCategory
-  Widget _bindSubCategory() {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10.0),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 50,
-        height: 42,
-        color: Color(0xFFf2f3f5),
-        child: DropdownButtonHideUnderline(
-          child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButton(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
-              hint: RichText(
-                text: TextSpan(
-                  text: "Select Sub Category",
-                  style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '',
-                      style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-                    ),
-                  ],
-                ),
-              ),
-              value: _dropDownValueComplaintSubCategory,
-              onChanged: (newValue) {
-                setState(() {
-                  _dropDownValueComplaintSubCategory = newValue;
-                  print('---131---D Ca--$_dropDownValueComplaintSubCategory');
-                  bindComplaintSubCategory.forEach((element) {
-                    if (element["sSubCategoryName"] == _dropDownValueComplaintSubCategory) {
-                      setState(() {
-                        _selectedbindComplaintSubCategory = element['iSubCategoryCode'];
-                        print('----xxxx C VALUE ---$_selectedbindComplaintSubCategory');
-                      });
-                    }
-                  });
-                });
-              },
-              items: bindComplaintSubCategory.map((dynamic item) {
-                return DropdownMenuItem(
-                  value: item["iSubCategoryCode"].toString(),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      item['sSubCategoryName'].toString(),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-  // bindi ward
-  Widget _bindWard() {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10.0),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 50,
-        height: 42,
-        color: Color(0xFFf2f3f5),
-        child: DropdownButtonHideUnderline(
-          child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButton(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
-              hint: RichText(
-                text: TextSpan(
-                  text: "Select Garbage Request Type",
-                  style: AppTextStyle.font14penSansExtraboldBlack45TextStyle,
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: '',
-                        style: AppTextStyle
-                            .font14penSansExtraboldBlack45TextStyle),
-                  ],
-                ),
-              ), // Not necessary for Option 1
-              value: _dropDownValueWard,
-              // key: distDropdownFocus,
-              onChanged: (newValue) {
-                setState(() {
-                  _dropDownValueWard = newValue;
-                  print('---33-------$_dropDownValueWard');
-                  //  _isShowChosenDistError = false;
-                  // Iterate the List
-                  bindComplintWard.forEach((element) {
-                    if (element["sWardName"] == _dropDownValueWard) {
-                      setState(() {
-                        _selectedValueWard = element['sWardCode'];
-                        print('----Selectred Ward---198--------$_selectedValueWard');
-                      });
-                      print('-----Point id----241---$_selectedValueWard');
-                      if (_selectedValueWard != null) {
-                        // updatedBlock();
-                        print('-----Point id----244---$_selectedValueWard');
-                      } else {
-                        print('-------');
-                      }
-                      // print("Distic Id value xxxxx.... $_selectedDisticId");
-                      print("Distic Name xxxxxxx.... $_dropDownValueDistric");
-                      print("Block list Ali xxxxxxxxx.... $blockList");
-                    }
-                  });
-                });
-              },
-              items: bindComplintWard.map((dynamic item) {
-                return DropdownMenuItem(
-                  child: Text(item['sWardName'].toString()),
-                  value: item["sWardCode"].toString(),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -332,11 +203,8 @@ class _TemplesHomeState extends State<SewargeLifting> {
         backgroundColor: Colors.white,
         appBar: getAppBarBack(context,'${widget.name}'),
         // appBar: getAppBarBack(context,'JSSJSJ'),
-        // drawer: generalFunction.drawerFunction(context, 'Suaib Ali', '9871950881'),
-
         body: ListView(
           children: <Widget>[
-            // middleHeader(context, '${widget.complaintName}'),
             SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15,bottom: 20,top: 15),

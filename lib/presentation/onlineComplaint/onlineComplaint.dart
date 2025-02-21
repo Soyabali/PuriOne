@@ -150,7 +150,7 @@ class _OnlineComplaintState extends State<OnlineComplaint> {
           title: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Text(
-              'Online Complaint',
+              'Raise Grievance',
               style: AppTextStyle.font16OpenSansRegularWhiteTextStyle,
               textAlign: TextAlign.center,
             ),
